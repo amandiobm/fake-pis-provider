@@ -10,8 +10,6 @@ PIS Provider
 
 PIS provider for [Faker](https://github.com/fzaninotto/Faker).
 
-API: [emanueleminotto.github.io/PlaceholdItProvider](http://emanueleminotto.github.io/PlaceholdItProvider/)
-
 ## Install
 Install Silex using [Composer](http://getcomposer.org/).
 
