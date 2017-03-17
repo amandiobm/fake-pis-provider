@@ -13,18 +13,35 @@ class PisProviderTest extends PHPUnit_Framework_TestCase
      * @test
      * @use ::pis
      */
-    public function pisTrue()
+    public function shouldReturnA11NumberPis()
     {
-        $this->assertTrue(PisProvider::pis(true));
+        $pis = PisProvider::pis();
+        $this->assertCount(11, str_split($pis));
     }
 
     /**
      * @test
      * @use ::pis
      */
-    public function pisFalse()
+    public function shouldReturnAValidPis()
     {
-        $this->assertFalse(PisProvider::pis(false));
+        $pis = PisProvider::pis();
+        $numberAsArray = str_split($pis);
+
+        $result = PisProvider::calculateVerifierDigit($numberAsArray);
+
+        $this->assertEquals($result['subtraction'], $numberAsArray[10]);
+    }
+
+    /**
+     * @test
+     * @use ::pis
+     */
+    public function shouldReturnAFormattedValidPis()
+    {
+        $pis = PisProvider::pis(true);
+
+        $this->assertRegExp(PisProvider::FORMATTED_PATTERN_PIS, $pis);
     }
 
 }
