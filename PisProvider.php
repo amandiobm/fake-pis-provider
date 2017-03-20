@@ -53,20 +53,18 @@ class PisProvider extends Base_Provider
         $result = self::calculateVerifierDigit($randomNumberAsArray);
 
         // Add the verifier digit to the pis number
-        if ($result['remainder'] < 2) {
-            array_push($randomNumberAsArray, 0);
-        } else {
-            array_push($randomNumberAsArray, $result['subtraction']);
-        }
+        $randomNumberAsArray[] = $result['remainder'] < 2
+            ? 0
+            : $result['subtraction'];
 
         //Pul all numbers together
         $pis = implode('', $randomNumberAsArray);
 
         if ($formatted) {
             return preg_replace(self::UNFORMATTED_PATTERN_PIS, self::REPLACEMENT_PIS, $pis);
-        } else {
-            return $pis;
         }
+
+        return $pis;
     }
 
     /**
@@ -76,8 +74,9 @@ class PisProvider extends Base_Provider
     private static function getRandomNumbers()
     {
         $randomNumberAsArray = [];
+
         for ($i = 0; $i < 10; $i++) {
-            array_push($randomNumberAsArray, self::randomDigit());
+            $randomNumberAsArray[] = self::randomDigit();
         }
 
         return $randomNumberAsArray;
@@ -92,16 +91,12 @@ class PisProvider extends Base_Provider
      */
     public static function calculateVerifierDigit($randomNumberAsArray)
     {
-        $sum = ($randomNumberAsArray[0] * 3)
-            + ($randomNumberAsArray[1] * 2)
-            + ($randomNumberAsArray[2] * 9)
-            + ($randomNumberAsArray[3] * 8)
-            + ($randomNumberAsArray[4] * 7)
-            + ($randomNumberAsArray[5] * 6)
-            + ($randomNumberAsArray[6] * 5)
-            + ($randomNumberAsArray[7] * 4)
-            + ($randomNumberAsArray[8] * 3)
-            + ($randomNumberAsArray[9] * 2);
+        $digits = [3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+        $sum = array_sum(
+            array_map(function ($randomNumber, $digit) {
+                return $randomNumber * $digit;
+            }, $randomNumberAsArray, $digits)
+        );
 
         $remainder = $sum % 11;
         $subtraction = 11 - $remainder;
