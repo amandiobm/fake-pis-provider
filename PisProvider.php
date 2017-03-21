@@ -52,13 +52,8 @@ class PisProvider extends Base_Provider
         // Calculate DV
         $result = self::calculateVerifierDigit($randomNumberAsArray);
 
-        // Add the verifier digit to the pis number
-        $randomNumberAsArray[] = $result['remainder'] < 2
-            ? 0
-            : $result['subtraction'];
-
-        //Pul all numbers together
-        $pis = implode('', $randomNumberAsArray);
+        //Put all numbers together
+        $pis = implode('', $result);
 
         if ($formatted) {
             return preg_replace(self::UNFORMATTED_PATTERN_PIS, self::REPLACEMENT_PIS, $pis);
@@ -101,9 +96,11 @@ class PisProvider extends Base_Provider
         $remainder = $sum % 11;
         $subtraction = 11 - $remainder;
 
-        return [
-            'remainder'   => $remainder,
-            'subtraction' => $subtraction,
-        ];
+        // Add the verifier digit to the pis number
+        $randomNumberAsArray[] = $remainder < 2
+            ? 0
+            : $subtraction;
+
+        return $randomNumberAsArray;
     }
 }

@@ -28,9 +28,9 @@ class PisProviderTest extends PHPUnit_Framework_TestCase
         $pis = PisProvider::pis();
         $numberAsArray = str_split($pis);
 
-        $result = PisProvider::calculateVerifierDigit($numberAsArray);
+        $expected = PisProvider::calculateVerifierDigit($numberAsArray);
 
-        $this->assertEquals($result['subtraction'], $numberAsArray[10]);
+        $this->assertEquals($expected[10], $numberAsArray[10]);
     }
 
     /**
