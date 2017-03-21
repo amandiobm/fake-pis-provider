@@ -1,7 +1,7 @@
 PIS Provider
 ====================
 
-[![Build Status](https://img.shields.io/travis/amandiobm/fake-pis-provider.svg?style=flat)](https://travis-ci.org/amandiobm/fake-pis-provider)
+[![Build Status](https://travis-ci.org/amandiobm/fake-pis-provider.svg?branch=master)](https://travis-ci.org/amandiobm/fake-pis-provider)
 [![Coverage Status](https://coveralls.io/repos/github/amandiobm/fake-pis-provider/badge.svg)](https://coveralls.io/github/amandiobm/fake-pis-provider)
 [![Total Downloads](https://img.shields.io/packagist/dt/amandiobm/faker-pis-provider.svg?style=flat)](https://packagist.org/packages/amandiobm/faker-pis-provider)
 
