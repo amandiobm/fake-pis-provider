@@ -18,7 +18,7 @@ script:
 - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 after_script:
-- php vendor/bin/coveralls -v
+- travis_retry php vendor/bin/coveralls -v
 - if [ $TRAVIS_PHP_VERSION = '5.6' ]; then sh generate-api.sh; fi
 
 notifications:
