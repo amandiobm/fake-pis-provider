@@ -11,8 +11,6 @@ PIS Provider
 PIS provider for [Faker](https://github.com/fzaninotto/Faker).
 
 ## Install
-Install Silex using [Composer](http://getcomposer.org/).
-
 Install the PisProvider adding `amandiobm/faker-pis-provider` to your composer.json or from CLI:
 
 ```
@@ -25,7 +23,7 @@ $ composer require amandiobm/faker-pis-provider
 $faker = Faker\Factory::create();
 $faker->addProvider(new AmandioMagalhaes\Faker\PisProvider($faker));
 
-// size
+// PIS
 $pis = $faker->pis(); // 57182789660
 $formattedPis = $faker->pis(true); // 571.82789.66-0
 ```
