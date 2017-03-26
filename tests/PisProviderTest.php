@@ -17,6 +17,7 @@ class PisProviderTest extends PHPUnit_Framework_TestCase
     {
         $pis = PisProvider::pis();
         $this->assertCount(11, str_split($pis));
+        $this->assertRegExp(PisProvider::UNFORMATTED_PATTERN_PIS, $pis);
     }
 
     /**
@@ -40,8 +41,35 @@ class PisProviderTest extends PHPUnit_Framework_TestCase
     public function shouldReturnAFormattedValidPis()
     {
         $pis = PisProvider::pis(true);
-
         $this->assertRegExp(PisProvider::FORMATTED_PATTERN_PIS, $pis);
+    }
+
+    /**
+     * @test
+     * @use ::pis
+     */
+    public function shouldReturnAValidPisUsingSubtractionAsVerifierDigit()
+    {
+        $pis = 56981723247;
+        $numberAsArray = str_split($pis);
+
+        $expected = PisProvider::calculateVerifierDigit($numberAsArray);
+
+        $this->assertEquals(7, $expected[10]);
+    }
+
+    /**
+     * @test
+     * @use ::pis
+     */
+    public function shouldReturnAValidPisUsingZeroAsVerifierDigit()
+    {
+        $pis = 42260133170;
+        $numberAsArray = str_split($pis);
+
+        $expected = PisProvider::calculateVerifierDigit($numberAsArray);
+
+        $this->assertEquals(0, $expected[10]);
     }
 
 }
