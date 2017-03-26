@@ -27,3 +27,4 @@ $faker->addProvider(new AmandioMagalhaes\Faker\PisProvider($faker));
 $pis = $faker->pis(); // 57182789660
 $formattedPis = $faker->pis(true); // 571.82789.66-0
 ```
+
